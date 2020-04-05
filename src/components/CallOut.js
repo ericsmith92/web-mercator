@@ -42,10 +42,10 @@ class CallOut extends React.Component{
         return(
             <div className="callOut">
                 <div className="callOut_wrapper">
-                    <div>{this.state.countryCode}</div>
-                    <div>Total: {this.state.total}</div>
-                    <div>Recovered: {this.state.recovered}</div>
-                    <div>Deaths: {this.state.deaths}</div>
+                    <div className="callOut_country">{this.state.countryCode}</div>
+                    <div className="callOut_total"><span>Total:</span> {this.state.total}</div>
+                    <div className="callOut_deaths"><span>Deaths:</span> {this.state.deaths}</div>
+                    <div className="callOut_recovered"><span>Recov:</span> {this.state.recovered}</div>
                     <div className="callOut_triangle"></div>
                 </div>
             </div>

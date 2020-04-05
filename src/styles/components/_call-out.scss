@@ -1,16 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
+
 .callOut{
     position: absolute;
     top: -75px;
-    left: -100px;
-    width: 100px;
+    left: -150px;
+    width: 150px;
     height: 70px;
+    padding: 5px;
     background-color: #fff;
+    border: 1px solid #eee;
     border-radius: 5px;
     text-align: center;
     -webkit-transform: translateX(50%);
     -ms-transform: translateX(50%);
     transform: translateX(50%);
+    font-family: 'Roboto', sans-serif;
     font-size: 12px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 
     &_wrapper{
         position: relative;
@@ -18,15 +26,34 @@
         height: 100%;
     }
 
+    &_country{
+        letter-spacing: 2px;
+        font-weight: 800;
+    }
+
+    &_deaths{
+        color: #FF1E0A;
+    }
+
+    &_recovered{
+        color: #5CA34A;
+    }
+
+    span{
+        font-weight: 800;
+        color: #000;
+    }
+
     &_triangle{
         position: absolute;
         width: 10px;
         height: 10px;
         background-color: #fff;
-        bottom: -5px;
+        bottom: -10px;
         left: 50%;
         -webkit-transform: rotate(45deg) translateX(-50%);
         -ms-transform: rotate(45deg) translateX(-50%);
         transform: rotate(45deg) translateX(-50%);
+        z-index: 1;
     }
 }

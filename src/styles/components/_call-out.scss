@@ -1,15 +1,16 @@
 .callOut{
     position: absolute;
-    top: -55px;
-    left: -50px;
-    width: 50px;
-    height: 50px;
+    top: -75px;
+    left: -100px;
+    width: 100px;
+    height: 70px;
     background-color: #fff;
     border-radius: 5px;
     text-align: center;
     -webkit-transform: translateX(50%);
     -ms-transform: translateX(50%);
     transform: translateX(50%);
+    font-size: 12px;
 
     &_wrapper{
         position: relative;

@@ -3,7 +3,10 @@ import React from 'react';
 class CallOut extends React.Component{
     
     state = {
-        countryCode: null
+        countryCode: null,
+        total: null,
+        deaths: null,
+        recovered: null
     }
 
     componentDidMount(){
@@ -19,15 +22,30 @@ class CallOut extends React.Component{
     init = _ => {
         fetch(`http://api.geonames.org/countryCode?lat=${this.props.lat}&lng=${this.props.lon}&username=${process.env.REACT_APP_MAPBOX_GEONAMES_API_USER}`)
             .then(res => res.text())
-            .then(text => this.setState({countryCode: text}))
+            .then(text =>{
+                this.setState({countryCode: text});
+                this.getCountryDataFromCode(this.state.countryCode);
+            })
             .catch(err => console.log(err)) 
+    }
+
+    getCountryDataFromCode(countryCode){
+        fetch(`https://covid19.mathdro.id/api/countries/${countryCode}`)
+        .then(res => res.json())
+        .then(json => {
+            this.setState({total: json.confirmed.value, recovered: json.recovered.value, deaths: json.deaths.value});
+        })
+        .catch(err => console.log(err)) 
     }
 
     render(){
         return(
             <div className="callOut">
                 <div className="callOut_wrapper">
-                    {this.state.countryCode}
+                    <div>{this.state.countryCode}</div>
+                    <div>Total: {this.state.total}</div>
+                    <div>Recovered: {this.state.recovered}</div>
+                    <div>Deaths: {this.state.deaths}</div>
                     <div className="callOut_triangle"></div>
                 </div>
             </div>

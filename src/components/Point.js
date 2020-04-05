@@ -10,33 +10,37 @@ class Point extends React.Component{
     }
 
     componentDidMount(){
-        this.getLon(this.props.coordinates[0]);
-        this.getMercN(this.props.coordinates[1]);
+       this.init();
     }
 
-    getLon(x){
+    init = _ => {
+        const lon = this.getLon(this.props.coordinates[0]);
+        const mercN = this.getMercN(this.props.coordinates[1]);
+        const latRad = this.getLatRad(mercN);
+        const lat = this.getLat(latRad);
+        this.setState({lon, mercN, latRad, lat});
+    }
+
+    getLon = x => {
         const lon = x * 360 / 1024 - 180;
-        this.setState({lon});
+        return lon;
     }
 
-    getMercN(y){
+    getMercN = y => {
         const mercN = (y - 256) * this.props.PI / -512;
-        this.setState({mercN}, this.getLatRad);
+        return mercN;
     }
 
-    getLatRad(){
+    getLatRad = mercN => {
         //since we are working with base e
         const eulersNum = 2.7182818284590452353602874713527;
-        const mercN = this.state.mercN;
         const latRad = (Math.atan(Math.pow(eulersNum, mercN)) - (this.props.PI / 4)) * 2;
-        console.log(latRad);
-        this.setState({latRad}, this.getLat);
+        return latRad;
     }
 
-    getLat(){
-        const latRad = this.state.latRad;
+    getLat = latRad => {
         const lat = latRad * 180 / this.props.PI;
-        this.setState({lat});
+        return lat;
     }
 
     render(){

@@ -55,11 +55,11 @@ class Point extends React.Component{
         return(
             <div className="point" style={{ left: this.props.coordinates[0], top: this.props.coordinates[1] }}>
                 <div  className="point_wrapper">
-                    {this.state.renderCallOut ? <CallOut /> : ''}
+                    {this.state.renderCallOut ? <CallOut lat={this.state.lat} lon={this.state.lon}/> : ''}
                 </div>
             </div>
         )
     }
 }
 
-export default Point;
+export default Point; 

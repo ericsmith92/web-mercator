@@ -1,4 +1,5 @@
 import React from 'react';
+import CallOut from './CallOut';
 
 class Point extends React.Component{
 
@@ -6,7 +7,8 @@ class Point extends React.Component{
         lon: 0,
         lat: 0,
         mercN: 0,
-        latRad: 0
+        latRad: 0,
+        renderCallOut: false
     }
 
     componentDidMount(){
@@ -24,7 +26,7 @@ class Point extends React.Component{
         const mercN = this.getMercN(this.props.coordinates[1]);
         const latRad = this.getLatRad(mercN);
         const lat = this.getLat(latRad);
-        this.setState({lon, mercN, latRad, lat});
+        this.setState({lon, mercN, latRad, lat, renderCallOut: true});
     }
 
     getLon = x => {
@@ -50,7 +52,13 @@ class Point extends React.Component{
     }
 
     render(){
-        return <div style={{position: 'absolute', width: '4px', height: '4px', background: 'red', borderRadius: '50%', left: this.props.coordinates[0], top: this.props.coordinates[1] }}></div>
+        return(
+            <div style={{position: 'absolute', width: '4px', height: '4px', background: 'red', borderRadius: '50%', left: this.props.coordinates[0], top: this.props.coordinates[1] }}>
+                <div style={{position: 'relative', width: '100%', height: '100%'}} className="wrapper">
+                    {this.state.renderCallOut ? <CallOut /> : ''}
+                </div>
+            </div>
+        )
     }
 }
 

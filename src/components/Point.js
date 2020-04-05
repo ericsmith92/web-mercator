@@ -13,6 +13,12 @@ class Point extends React.Component{
        this.init();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.coordinates[0] !== prevProps.coordinates[0] || this.props.coordinates[1] !== prevProps.coordinates[1]) {
+            this.init();
+        }
+      }
+
     init = _ => {
         const lon = this.getLon(this.props.coordinates[0]);
         const mercN = this.getMercN(this.props.coordinates[1]);
@@ -27,7 +33,7 @@ class Point extends React.Component{
     }
 
     getMercN = y => {
-        const mercN = (y - 256) * this.props.PI / -512;
+        const mercN = (y - 256) * this.props.PI / - 512;
         return mercN;
     }
 
@@ -44,7 +50,7 @@ class Point extends React.Component{
     }
 
     render(){
-        return <div style={{position: 'absolute', width: '4px', height: '4px', background: 'red', borderRadius: '50%', left: this.state.lon }}></div>
+        return <div style={{position: 'absolute', width: '4px', height: '4px', background: 'red', borderRadius: '50%', left: this.props.coordinates[0], top: this.props.coordinates[1] }}></div>
     }
 }
 

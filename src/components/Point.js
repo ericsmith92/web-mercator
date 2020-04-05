@@ -53,8 +53,8 @@ class Point extends React.Component{
 
     render(){
         return(
-            <div style={{position: 'absolute', width: '4px', height: '4px', background: 'red', borderRadius: '50%', left: this.props.coordinates[0], top: this.props.coordinates[1] }}>
-                <div style={{position: 'relative', width: '100%', height: '100%'}} className="wrapper">
+            <div className="point" style={{ left: this.props.coordinates[0], top: this.props.coordinates[1] }}>
+                <div  className="point_wrapper">
                     {this.state.renderCallOut ? <CallOut /> : ''}
                 </div>
             </div>

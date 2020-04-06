@@ -1,4 +1,5 @@
 import React from 'react';
+import NumFormatter from './utilities/NumFormatter';
 
 class CallOut extends React.Component{
     
@@ -43,9 +44,9 @@ class CallOut extends React.Component{
             <div className="callOut">
                 <div className="callOut_wrapper">
                     <div className="callOut_country">{this.state.countryCode}</div>
-                    <div className="callOut_total"><span>Total:</span> {this.state.total}</div>
-                    <div className="callOut_deaths"><span>Deaths:</span> {this.state.deaths}</div>
-                    <div className="callOut_recovered"><span>Recov:</span> {this.state.recovered}</div>
+                    <div className="callOut_total"><span>Total:</span> {this.state.total ? <NumFormatter num={this.state.total} />: ''}</div>
+                    <div className="callOut_deaths"><span>Deaths:</span> {this.state.total ? <NumFormatter num={this.state.deaths} />: ''}</div>
+                    <div className="callOut_recovered"><span>Recov:</span> {this.state.total ? <NumFormatter num={this.state.recovered} />: ''}</div>
                     <div className="callOut_triangle"></div>
                 </div>
             </div>

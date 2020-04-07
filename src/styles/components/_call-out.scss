@@ -38,6 +38,8 @@
 
     &_recovered{
         color: #5CA34A;
+        position: relative;
+        z-index: 2;
     }
 
     span{

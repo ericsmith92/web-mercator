@@ -1,0 +1,25 @@
+.error{
+    position: fixed;
+    top: 300px;
+    width: 1000px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: rgba(159,58,56, 0.5);
+    font-size: 20px;
+    color: #fff;
+    padding: 5px 0;
+    border-radius: 5px;
+    border: 2px solid #5f1715;
+
+    &_btn{
+        border: none;
+        background: none;
+        color: #fff;
+        float: right;
+        font-size: 20px;
+        cursor: pointer; 
+    }
+}

@@ -17,7 +17,7 @@ class Error extends React.Component{
             return(
                 <div className="error">
                     <button onClick={this.closeError} className="error_btn">&times;</button>
-                    Error
+                    Error, looks like you clicked on water.
                 </div>
             )
         }

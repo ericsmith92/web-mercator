@@ -1,6 +1,5 @@
 import React from 'react';
 import NumFormatter from './utilities/NumFormatter';
-import Error from './Error';
 import axios from 'axios';
 
 class CallOut extends React.Component{
@@ -9,8 +8,7 @@ class CallOut extends React.Component{
         countryCode: null,
         total: null,
         deaths: null,
-        recovered: null,
-        error: false
+        recovered: null
     }
 
     componentDidMount(){
@@ -19,11 +17,11 @@ class CallOut extends React.Component{
 
     componentDidUpdate(prevProps) {
         if (this.props.lat !== prevProps.lat || this.props.lon !== prevProps.lon) {
-            this.init();
+            this.init(prevProps);
         }
       }
 
-    init = _ => {
+    init = (prevProps = {}) => {
             axios.get(`http://api.geonames.org/countryCode?lat=${this.props.lat}&lng=${this.props.lon}&username=${process.env.REACT_APP_MAPBOX_GEONAMES_API_USER}`)
                 .then(res => res.data)
                 .then(text =>{
@@ -31,7 +29,7 @@ class CallOut extends React.Component{
                     this.getCountryDataFromCode(this.state.countryCode);
                 })
                 .catch(err => {
-                    this.setState({error: true});
+                    this.props.updateErrorStatus(prevProps);
                     console.log(err);
                 });
     }
@@ -45,28 +43,18 @@ class CallOut extends React.Component{
         .catch(err => console.log(err)); 
     }
 
-    onErrorDismiss = () => {
-        this.setState({ error: false });
-    }
-
     render(){
-        if(this.state.error){
-            return(
-                <Error onErrorDismiss={this.onErrorDismiss}/>
-            )
-        }else{
-            return(
-                <div className="callOut">
-                    <div className="callOut_wrapper">
-                        <div className="callOut_country">{this.state.countryCode}</div>
-                        <div className="callOut_total"><span>Total:</span> {this.state.total ? <NumFormatter num={this.state.total} />: ''}</div>
-                        <div className="callOut_deaths"><span>Deaths:</span> {this.state.total ? <NumFormatter num={this.state.deaths} />: ''}</div>
-                        <div className="callOut_recovered"><span>Recov:</span> {this.state.total ? <NumFormatter num={this.state.recovered} />: ''}</div>
-                        <div className="callOut_triangle"></div>
-                    </div>
+        return(
+            <div className="callOut">
+                <div className="callOut_wrapper">
+                    <div className="callOut_country">{this.state.countryCode}</div>
+                    <div className="callOut_total"><span>Total:</span> {this.state.total ? <NumFormatter num={this.state.total} />: ''}</div>
+                    <div className="callOut_deaths"><span>Deaths:</span> {this.state.total ? <NumFormatter num={this.state.deaths} />: ''}</div>
+                    <div className="callOut_recovered"><span>Recov:</span> {this.state.total ? <NumFormatter num={this.state.recovered} />: ''}</div>
+                    <div className="callOut_triangle"></div>
                 </div>
-            )
-        }
+            </div>
+        )
     }
 }
 

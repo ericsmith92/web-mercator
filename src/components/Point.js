@@ -1,14 +1,18 @@
 import React from 'react';
 import CallOut from './CallOut';
+import Error from './Error';
 
 class Point extends React.Component{
 
     state = {
+        x: 0,
+        y: 0,
         lon: 0,
         lat: 0,
         mercN: 0,
         latRad: 0,
-        renderCallOut: false
+        renderCallOut: false,
+        error: false
     }
 
     componentDidMount(){
@@ -26,7 +30,7 @@ class Point extends React.Component{
         const mercN = this.getMercN(this.props.coordinates[1]);
         const latRad = this.getLatRad(mercN);
         const lat = this.getLat(latRad);
-        this.setState({lon, mercN, latRad, lat, renderCallOut: true});
+        this.setState({x:  this.props.coordinates[0], y:  this.props.coordinates[1], lon, mercN, latRad, lat, renderCallOut: true});
     }
 
     getLon = x => {
@@ -51,14 +55,33 @@ class Point extends React.Component{
         return lat;
     }
 
+    updateErrorStatus = (prevProps) => {
+        if(!Object.keys(prevProps).length){
+            //set default city to toronto
+            this.setState({ error: true, x: 286.227, y: 117.366, lat: 43.741667, lon: -79.373333 });
+        }else{
+            this.setState({ error: true, x: prevProps.x, y: prevProps.y, lat: prevProps.lat, lon: prevProps.lon });
+        }
+    }
+
+    onErrorDismiss = () => {
+        this.setState({ error: false });
+    }
+
     render(){
-        return(
-            <div className="point" style={{ left: this.props.coordinates[0], top: this.props.coordinates[1] }}>
-                <div  className="point_wrapper">
-                    {this.state.renderCallOut ? <CallOut lat={this.state.lat} lon={this.state.lon}/> : ''}
+        if(this.state.error){
+            return(
+                <Error onErrorDismiss={this.onErrorDismiss}/>
+            )
+        }else{
+            return(
+                <div className="point" style={{ left: this.state.x + 'px', top: this.state.y + 'px'}}>
+                    <div  className="point_wrapper">
+                        {this.state.renderCallOut ? <CallOut x={this.state.x} y={this.state.y} lat={this.state.lat} lon={this.state.lon} updateErrorStatus={this.updateErrorStatus} /> : ''}
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

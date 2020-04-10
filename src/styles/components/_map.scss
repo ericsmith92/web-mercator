@@ -1,3 +1,10 @@
 .map{
-    //overflow-x: scroll;
+    margin: 100px auto 0 auto;
+    position: relative;
+}
+
+@media all and (max-width: 1239px){
+    .map{
+        overflow-x: scroll;
+    }
 }

@@ -30,6 +30,8 @@
     &_country{
         letter-spacing: 2px;
         font-weight: 800;
+        position: relative;
+        z-index: 2;
     }
 
     &_deaths{
@@ -58,5 +60,17 @@
         -ms-transform: rotate(45deg) translateX(-50%);
         transform: rotate(45deg) translateX(-50%);
         z-index: 1;
+    }
+}
+
+@media all and (max-width: 1239px){
+    .bottom .callOut{
+        top: inherit;
+        bottom: -75px; 
+
+        &_triangle{
+            bottom: inherit;
+            top: -4px;
+        }
     }
 }

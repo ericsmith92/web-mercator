@@ -1,0 +1,19 @@
+footer{
+    padding: 30px 0;
+    text-align: center;
+
+    .copyright{
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+
+        i{
+            background: linear-gradient(-90deg,#8d0b0b, #f21111);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+            font-size: 16px;
+        }
+    }
+}

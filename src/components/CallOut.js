@@ -22,16 +22,20 @@ class CallOut extends React.Component{
       }
 
     init = (prevProps = {}) => {
-            axios.get(`http://api.geonames.org/countryCode?lat=${this.props.lat}&lng=${this.props.lon}&username=${process.env.REACT_APP_MAPBOX_GEONAMES_API_USER}`)
-                .then(res => res.data)
-                .then(text =>{
-                    this.setState({countryCode: text});
-                    this.getCountryDataFromCode(this.state.countryCode);
-                })
-                .catch(err => {
-                    this.props.updateErrorStatus(prevProps);
-                    console.log(err);
-                });
+        axios.get(`https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_OPENCAGE_API_KEY}&q=${encodeURIComponent(this.props.lat + ',' + this.props.lon)}&pretty=1&no_annotations=1`)
+        .then(res => res.data)
+        .then(json =>{
+            if(!json.results[0].components['ISO_3166-1_alpha-3']){
+                this.props.updateErrorStatus(prevProps);
+            }else{
+                this.setState({countryCode: json.results[0].components['ISO_3166-1_alpha-3']});
+                this.getCountryDataFromCode(this.state.countryCode);
+            }
+        })
+        .catch(err => {
+            this.props.updateErrorStatus(prevProps);
+            console.log(err);
+        });
     }
 
     getCountryDataFromCode(countryCode){

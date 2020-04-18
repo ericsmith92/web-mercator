@@ -14,7 +14,7 @@ class Point extends React.Component{
         mercN: 0,
         latRad: 0,
         renderCallOut: false,
-        renderCallOutBottom: false,
+        renderCallOutBottom: true,
         error: false
     }
 
@@ -60,11 +60,12 @@ class Point extends React.Component{
     }
 
     updateErrorStatus = (prevProps) => {
+        console.log(prevProps);
         if(!Object.keys(prevProps).length){
             //set default city to Toronto
             this.setState({ error: true, x: 286.227, y: 117.366, lat: 43.741667, lon: -79.373333 });
         }else{
-            this.setState({ error: true, x: prevProps.x, y: prevProps.y, lat: prevProps.lat, lon: prevProps.lon });
+            this.setState({ error: true, x: prevProps.x, y: prevProps.y, lat: prevProps.lat, lon: prevProps.lon});
         }
     }
 
@@ -80,7 +81,7 @@ class Point extends React.Component{
         }else{
             return(
                 <div className="point" style={{ left: this.state.x + 'px', top: this.state.y + 'px'}}>
-                    <div  className={`point_wrapper ${this.state.renderCallOutBottom ? 'bottom' : ''}`}>
+                    <div  className={`point_wrapper ${this.state.renderCallOutBottom ? 'bottom' : ''} ${this.state.x <= 80 ? 'shift' : ''}`}>
                         {this.state.renderCallOut ? <CallOut x={this.state.x} y={this.state.y} lat={this.state.lat} lon={this.state.lon} updateErrorStatus={this.updateErrorStatus} /> : ''}
                     </div>
                 </div>

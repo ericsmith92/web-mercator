@@ -26,13 +26,13 @@
 
 @media all and (min-width: 1030px){
     .error{
+        position: absolute;
         width: 80%;
     }
 }
 
 @media all and (min-width: 1240px){
     .error{
-        position: absolute;
         width: 95%;
     }
 }

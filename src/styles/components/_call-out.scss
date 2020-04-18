@@ -64,13 +64,26 @@
 }
 
 @media all and (max-width: 1239px){
-    .bottom .callOut{
-        top: inherit;
-        bottom: -75px; 
-
-        &_triangle{
-            bottom: inherit;
-            top: -4px;
+    .bottom{
+        .callOut{
+            top: inherit;
+            bottom: -75px; 
+    
+            &_triangle{
+                bottom: inherit;
+                top: -4px;
+            }
         }
+
+        &.shift{
+            .callOut{
+                left: -80px; 
+        
+                &_triangle{
+                    left: 0;
+                }
+            }
+        }
+    
     }
 }

@@ -25,10 +25,11 @@ class CallOut extends React.Component{
         axios.get(`https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_OPENCAGE_API_KEY}&q=${encodeURIComponent(this.props.lat + ',' + this.props.lon)}&pretty=1&no_annotations=1`)
         .then(res => res.data)
         .then(json =>{
-            if(!json.results[0].components['ISO_3166-1_alpha-3']){
+            if(!json.results[0].components['ISO_3166-1_alpha-2']){
                 this.props.updateErrorStatus(prevProps);
             }else{
-                this.setState({countryCode: json.results[0].components['ISO_3166-1_alpha-3']});
+                const countryCode = json.results[0].components['ISO_3166-1_alpha-2'];
+                this.setState({countryCode});
                 this.getCountryDataFromCode(this.state.countryCode);
             }
         })

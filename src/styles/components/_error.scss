@@ -6,7 +6,7 @@
     left: 0;
     text-align: center;
     background-color: rgba(159,58,56, 0.5);
-    font-size: 20px;
+    font-size: 16px;
     border: 2px solid #5f1715;
 
     &_inner{
@@ -38,6 +38,8 @@
 
 @media all and (min-width: 600px){
     .error{
+        font-size: 20px;
+
         &_btn{
             top: 5px;
             right: 5px;

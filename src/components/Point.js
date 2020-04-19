@@ -14,7 +14,8 @@ class Point extends React.Component{
         mercN: 0,
         latRad: 0,
         renderCallOut: false,
-        error: false
+        error: false,
+        errorMsg: ''
     }
 
     componentDidMount(){
@@ -57,12 +58,12 @@ class Point extends React.Component{
         return lat;
     }
 
-    updateErrorStatus = (prevProps) => {
+    updateErrorStatus = (prevProps, msg) => {
         if(!Object.keys(prevProps).length){
             //set default city to Toronto
-            this.setState({ error: true, x: 286.227, y: 117.366, lat: 43.741667, lon: -79.373333 });
+            this.setState({ error: true, x: 286.227, y: 117.366, lat: 43.741667, lon: -79.373333, errorMsg:  msg});
         }else{
-            this.setState({ error: true, x: prevProps.x, y: prevProps.y, lat: prevProps.lat, lon: prevProps.lon});
+            this.setState({ error: true, x: prevProps.x, y: prevProps.y, lat: prevProps.lat, lon: prevProps.lon, errorMsg:  msg});
         }
     }
 
@@ -73,7 +74,7 @@ class Point extends React.Component{
     render(){
         if(this.state.error){
             return(
-                <Error onErrorDismiss={this.onErrorDismiss}/>
+                <Error onErrorDismiss={this.onErrorDismiss} text={this.state.errorMsg}/>
             )
         }else{
             return(

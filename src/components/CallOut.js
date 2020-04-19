@@ -26,26 +26,29 @@ class CallOut extends React.Component{
         .then(res => res.data)
         .then(json =>{
             if(!json.results[0].components['ISO_3166-1_alpha-2']){
-                this.props.updateErrorStatus(prevProps);
+                this.props.updateErrorStatus(prevProps, 'Error, looks like you clicked on water.');
             }else{
                 const countryCode = json.results[0].components['ISO_3166-1_alpha-2'];
                 this.setState({countryCode});
-                this.getCountryDataFromCode(this.state.countryCode);
+                this.getCountryDataFromCode(this.state.countryCode, prevProps);
             }
         })
         .catch(err => {
-            this.props.updateErrorStatus(prevProps);
+            this.props.updateErrorStatus(prevProps, 'Error, looks like you clicked on water.');
             console.log(err);
         });
     }
 
-    getCountryDataFromCode(countryCode){
+    getCountryDataFromCode(countryCode, prevProps){
         axios.get(`https://covid19.mathdro.id/api/countries/${countryCode}`)
         .then(res => res.data)
         .then(json => {
             this.setState({total: json.confirmed.value, recovered: json.recovered.value, deaths: json.deaths.value});
         })
-        .catch(err => console.log(err)); 
+        .catch(err => {
+            this.props.updateErrorStatus(prevProps, `Error, unable to fetch data for country code ${countryCode}.`);
+            console.log(err);
+        }); 
     }
 
     render(){

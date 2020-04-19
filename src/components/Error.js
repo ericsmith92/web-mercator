@@ -19,7 +19,7 @@ class Error extends React.Component{
                 <div className="error">
                     <div className="error_inner">
                         <button onClick={this.closeError} className="error_btn">&times;</button>
-                        Error, looks like you clicked on water.
+                        {this.props.text}
                     </div>
                 </div>,
                 document.getElementById('modal')

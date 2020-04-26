@@ -1,0 +1,53 @@
+.accordion{
+    max-width: 1024px;
+    margin: 50px auto 20px auto;
+
+    &_toggle{
+        border: none;
+        background: transparent;
+        padding: none;
+        cursor: pointer;
+
+        i{
+            color: #343332;
+            font-size: 26px;
+        }
+    }
+
+    &_content{
+        height: 0;
+        overflow: hidden;
+        transition: all 1s;
+        padding: 0 0 0 30px;
+
+        &__text{
+            font-size: 12px;
+        }
+    }
+
+    &.open{
+        .accordion_content{
+            height: 60px;
+        }
+    }
+}
+
+@media all and (min-width: 1100px){
+    .accordion{
+        margin: 100px auto 50px auto;
+
+        &_content{
+            padding: 0 0 0 50px;
+
+            &__text{
+                font-size: 16px;
+            }
+        }
+
+        &.open{
+            .accordion_content{
+                height: 40px;
+            }
+        }
+    }
+}

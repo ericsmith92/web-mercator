@@ -21,7 +21,7 @@ class Accordion extends React.Component{
                 </div>
                 <div className="accordion_content">
                     <p className="accordion_content__text">
-                        Use your mouse to click on a country below, data will be fetched in real time showing total active cases, deaths, and recoveries. 
+                        Click or touch a Country below, data will be retrieved in real time showing total active cases, deaths, and recoveries. 
                     </p>
                 </div>
             </div>

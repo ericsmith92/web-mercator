@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return(
         <header>
-            <h1>Covid-19 Tracker</h1>
+            <h1>Covid-<span className='red'>19</span> Tracker</h1>
         </header>
     )
 }

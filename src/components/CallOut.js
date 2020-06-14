@@ -1,5 +1,6 @@
 import React from 'react';
 import NumFormatter from './utilities/NumFormatter';
+import Loader from './utilities/Loader';
 import axios from 'axios';
 
 class CallOut extends React.Component{
@@ -8,7 +9,8 @@ class CallOut extends React.Component{
         countryCode: null,
         total: null,
         deaths: null,
-        recovered: null
+        recovered: null,
+        loading: false
     }
 
     componentDidMount(){
@@ -40,29 +42,41 @@ class CallOut extends React.Component{
     }
 
     getCountryDataFromCode(countryCode, prevProps){
+        this.setState({loading: true});
         axios.get(`https://covid19.mathdro.id/api/countries/${countryCode}`)
         .then(res => res.data)
         .then(json => {
-            this.setState({total: json.confirmed.value, recovered: json.recovered.value, deaths: json.deaths.value});
+            this.setState({total: json.confirmed.value, recovered: json.recovered.value, deaths: json.deaths.value, loading: false});
         })
         .catch(err => {
+            this.setState({loading: false});
             this.props.updateErrorStatus(prevProps, `Error, unable to fetch data for country code ${countryCode}.`);
             console.log(err);
         }); 
     }
 
     render(){
-        return(
-            <div className="callOut">
-                <div className="callOut_wrapper">
-                    <div className="callOut_country">{this.state.countryCode}</div>
-                    <div className="callOut_total"><span>Total:</span> {this.state.total ? <NumFormatter num={this.state.total} />: ''}</div>
-                    <div className="callOut_deaths"><span>Deaths:</span> {this.state.total ? <NumFormatter num={this.state.deaths} />: ''}</div>
-                    <div className="callOut_recovered"><span>Recov:</span> {this.state.total ? <NumFormatter num={this.state.recovered} />: ''}</div>
-                    <div className="callOut_triangle"></div>
+        if(!this.state.loading){
+            return(
+                <div className="callOut">
+                    <div className="callOut_wrapper">
+                        <div className="callOut_country">{this.state.countryCode}</div>
+                        <div className="callOut_total"><span>Total:</span> {this.state.total ? <NumFormatter num={this.state.total} />: ''}</div>
+                        <div className="callOut_deaths"><span>Deaths:</span> {this.state.total ? <NumFormatter num={this.state.deaths} />: ''}</div>
+                        <div className="callOut_recovered"><span>Recov:</span> {this.state.total ? <NumFormatter num={this.state.recovered} />: ''}</div>
+                        <div className="callOut_triangle"></div>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <div className="callOut">
+                    <div className="callOut_wrapper">
+                        <Loader />
+                    </div>
+                </div>
+            ) 
+        }
     }
 }
 

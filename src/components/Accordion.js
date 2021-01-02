@@ -16,7 +16,7 @@ class Accordion extends React.Component{
             <div className={`accordion ${this.state.collapsed ? '' : 'open'}`}>
                 <div className="accordion_header">
                     <button className="accordion_toggle" onClick={() => this.toggleAccordion()}>
-                        <i class="fa fa-info-circle"></i>
+                        <i className="fa fa-info-circle"></i>
                     </button>
                 </div>
                 <div className="accordion_content">

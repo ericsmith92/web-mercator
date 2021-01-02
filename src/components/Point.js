@@ -2,8 +2,6 @@ import React from 'react';
 import CallOut from './CallOut';
 import Error from './Error';
 
-//TODO: In this component, get y coordinate position relative to parent, if y <= 80 (to allow buffer), add class bottom
-
 class Point extends React.Component{
 
     state = {
@@ -67,6 +65,20 @@ class Point extends React.Component{
         }
     }
 
+    closeCallOut = () => {
+        this.setState({ 
+            x: null,
+            y: null,
+            lon: 0,
+            lat: 0,
+            mercN: 0,
+            latRad: 0,
+            renderCallOut: false,
+            error: false,
+            errorMsg: ''
+        });
+    }
+
     onErrorDismiss = () => {
         this.setState({ error: false });
     }
@@ -80,7 +92,7 @@ class Point extends React.Component{
             return(
                 <div className="point" style={{ left: this.state.x + 'px', top: this.state.y + 'px'}}>
                     <div  className={`point_wrapper ${this.state.x <= 80 ? 'shift' : ''} ${this.state.y <= 90 ? 'bottom' : ''}`}>
-                        {this.state.renderCallOut ? <CallOut x={this.state.x} y={this.state.y} lat={this.state.lat} lon={this.state.lon} updateErrorStatus={this.updateErrorStatus} /> : ''}
+                        {this.state.renderCallOut ? <CallOut x={this.state.x} y={this.state.y} lat={this.state.lat} lon={this.state.lon} updateErrorStatus={this.updateErrorStatus} closeCallOut={this.closeCallOut}/> : ''}
                     </div>
                 </div>
             )

@@ -27,6 +27,20 @@
         height: 100%;
     }
 
+    &_close{
+        border: none;
+        background: none;
+        font-size: 14px;
+        font-weight: 800;
+        color: #9f3a38;
+        padding: 5px;
+        position: absolute;
+        top: -10px;
+        right: 0;
+        z-index: 3;
+        cursor: pointer;
+    }
+
     &_country{
         letter-spacing: 2px;
         font-weight: 800;

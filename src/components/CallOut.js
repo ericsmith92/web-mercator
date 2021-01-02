@@ -51,10 +51,20 @@ class CallOut extends React.Component{
         }); 
     }
 
+    closeCallOut = () => {
+        this.setState({ 
+            countryCode: null,
+            total: null,
+            deaths: null,
+            recovered: null });
+        this.props.closeCallOut();
+    }
+
     render(){
         return(
             <div className="callOut">
                 <div className="callOut_wrapper">
+                    <button className="callOut_close" onClick={this.closeCallOut}>&times;</button>
                     <div className="callOut_country">{this.state.countryCode}</div>
                     <div className="callOut_total"><span>Total:</span> {this.state.total ? <NumFormatter num={this.state.total} />: ''}</div>
                     <div className="callOut_deaths"><span>Deaths:</span> {this.state.total ? <NumFormatter num={this.state.deaths} />: ''}</div>
